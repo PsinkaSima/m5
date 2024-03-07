@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.15.2/css/all.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    header {
+      position: relative;
+      background-color: mediumslateblue;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      color: rgb(255, 255, 255);
+    }
+    .logo,
+    .burger {
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .burger {
+      display: none;
+    }
+    .link {
+      text-decoration: none;
+      color: inherit;
+      font-size: 20px;
+      margin-left: 10px;
+    }
+    @media screen and (max-width: 420px) {
+      .menu {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        background-color: mediumslateblue;
+        transition: all 0.5s;
+        right: -100%;
+        top: 100%;
+        border-radius: 0 0 0 10px;
+      }
+      .burger {
+        display: block;
+      }
+      .link {
+        margin: 7px;
+      }
+    }
+  </style>
+  <body>
+    <header>
+      <i class="logo fad fa-cat-space"></i>
+      <i class="burger fad fa-cheeseburger" id="burger"></i>
+      <nav class="menu" id="menu">
+        <a href="" class="link">Главная</a>
+        <a href="" class="link">Товары</a>
+        <a href="" class="link">Корзина</a>
+        <a href="" class="link">Кабинет</a>
+      </nav>
+    </header>
+  </body>
+  <script>
+    let menu = document.getElementById("menu");
+    let burger = document.getElementById("burger");
+    let count = 1;
+    burger.addEventListener("click", open);
+    function open() {
+      count ++
+
+      if (count % 2 === 0) {
+        menu.style.right = "0%";
+      } else {
+        menu.style.right = "-100%";
+      }
+    }
+  </script>
+</html>
