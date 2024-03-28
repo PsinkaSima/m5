@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.15.2/css/all.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      display: flex;
+      align-items: center;
+      color: darkviolet;
+      background-color: rgb(188, 157, 219);
+    }
+    nav {
+      overflow-x: hidden;
+    }
+    div {
+      display: flex;
+      /* transform: translateX(-0%); */
+      transition: all 0.5s;
+    }
+    img {
+      aspect-ratio: 16/9;
+      /* width: 33.3%; */
+      object-fit: cover;
+    }
+    i {
+      font-size: 25px;
+      margin: 0 10px;
+    }
+  </style>
+  <body>
+    <main>
+      <i id="btnL" class="fas fa-arrow-left"></i>
+      <nav>
+        <div id="images">
+          <img
+            src="https://www.tribunapracy.by/wp-content/uploads/2020/01/5df0c542ffd4561bebca356d46479da9_i-1065.jpg"
+          />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nebel_in_der_Region_Rh%C3%B6n_01386.jpg/1200px-Nebel_in_der_Region_Rh%C3%B6n_01386.jpg"
+          />
+          <img
+            src="https://cdn.fishki.net/upload/post/2020/01/10/3195824/tn/1a08910ef76a3e997bdbf907dc7c0187.jpg"
+          />
+          <img
+            src="https://pscrimea.files.wordpress.com/2018/07/9xomuwlafyc.jpg?w=1100"
+          />
+          <img
+            src="https://maglipogoda.ru/wp-content/uploads/2021/07/tuman-zastavka.jpg"
+          />
+        </div>
+      </nav>
+      <i id="btnR" class="fas fa-arrow-right"></i>
+    </main>
+  </body>
+  <script>
+    let images = document.getElementById("images");
+    let btnL = document.getElementById("btnL");
+    let btnR = document.getElementById("btnR");
+    let current = 0;
+    let count = 3;
+    let width = 100 / count;
+    let item = images.childElementCount - count;
+    for (let i = 0; i < images.childElementCount; i++) {
+      images.children[i].style.width = width + "%";
+    }
+    btnR.addEventListener('click', swipeR)
+    function swipeR() {
+        current+=1
+        if (current > item){
+            current = 0
+        }
+        images.style.transform=`translateX(-${width*current}%)`
+    }
+    btnL.addEventListener('click', swipeL)
+    function swipeL() {
+        current-=1
+        if (current < 0){
+            current = item
+        }
+        images.style.transform=`translateX(-${width*current}%)`
+    }
+    setInterval(swipeR, 3000)
+  </script>
+</html>
