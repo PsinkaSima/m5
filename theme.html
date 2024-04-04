@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.15.2/css/all.css"
+    />
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    :root {
+        --bg: black;
+        --clr: white;
+
+    }
+    [theme ='dark'] {
+        --bg: black;
+        --clr: white;
+    }
+    [theme ='light'] {
+        --bg: white;
+        --clr: black;}
+    body {
+        background-color: var(--bg);
+        color: var(--clr);
+        transition: all 1.5s;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* color: white; */
+        height: 100vh;
+        
+    }
+    button {
+        padding: 20px 40px;
+        border-radius: 30px;
+        font-size: 25px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.5s;
+        background-color: var(--clr);
+        color: var(--bg);
+
+    }
+    button:hover{
+        padding: 23px 43px;
+        font-size: 28px;
+        border-radius: 35px;
+    } 
+</style>
+<body id="block" theme="">
+    <main>
+        <button id="btn">
+            <i class="fas fa-sun"></i>
+            <!-- <i class="fas fa-moon"></i> -->
+        </button>
+        <p>
+            Нажмите кнопку, чтобы сменить тему.
+        </p>
+    </main>
+    <script>
+        let btn = document.getElementById('btn')
+        let block = document.getElementById('block')
+        function changeTheme() {
+            if (block.getAttribute('theme') == 'light') {
+                block.setAttribute('theme', 'dark');
+                btn.innerHTML='<i class="fas fa-sun"></i>'
+            } else {
+                block.setAttribute('theme', 'light')
+                btn.innerHTML='<i class="fas fa-moon"></i>'
+            }
+        }
+        btn.addEventListener('click', changeTheme)
+    </script>
+</body>
+</html>
