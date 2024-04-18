@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #canvas {
+      border: 4px black solid;
+    }
+  </style>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
+      canvas.width = 500;
+      canvas.height = 500;
+      let config = {
+        linesize: 5,
+        linecolor: "black",
+      };
+      let posX = [];
+      let posY = [];
+      let draw = false;
+      // canvas.addEventListener('mouseMove')
+      canvas.onmousedown = () => {
+        draw = true;
+        context.beginPath();
+      };
+      canvas.onmouseup = () => {
+        draw = false;
+        posX.push(false);
+        posY.push(false);
+      };
+      canvas.onmousemove = (e) => {
+        if (draw) {
+          mousePos(e);
+        }
+      };
+      function mousePos(e) {
+        posX.push(e.clientX);
+        posY.push(e.clientY);
+        drawLine(e.clientX, e.clientY);
+      }
+      function drawLine(x, y) {
+        context.lineWidth = config.linesize;
+        context.strokeStyle = config.linecolor;
+        context.lineTo(x, y);
+        context.stroke();
+      }
+      function clearCanvas() {
+        canvas.width = canvas.width;
+        canvas.height = canvas.height;
+      }
+      function reDraw() {
+        posX.splice(-5);
+        posY.splice(-5);
+        for (let i = 0; i < posX.length; i++) {
+          if (posX[i] == false) {
+            context.beginPath();
+          } else {
+            drawLine(posX[i], posY[i]);
+          }
+        }
+      }
+      function saveImg() {
+        let image = canvas
+          .toDataURL("image/png")
+          .replace("image/png", "image/octet-stream");
+        window.location.href = image;
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.code == "Space") {
+          saveImg();
+        }
+        if (e.code == "KeyC") {
+          clearCanvas();
+        }
+        if (e.code == "KeyZ") {
+          clearCanvas();
+          reDraw();
+        }
+      });
+    </script>
+  </body>
+</html>
