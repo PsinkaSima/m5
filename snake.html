@@ -35,11 +35,11 @@
       let snake = {
         x: 0,
         y: 0,
-        speed: 4,
-        dx: 0,
+        speed: 7,
+        dx: grid,
         dy: 0,
         tails: [],
-        countTails: 3,
+        countTails: 5,
       };
       function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
@@ -58,14 +58,15 @@
         clearCanvas();
         drawSnake();
         drawFood();
-       
-        // finish();
+
+        finish();
       }
       function drawFood() {
         context.fillStyle = "red";
         context.fillRect(food.x, food.y, grid - 1, grid - 1);
 
         if (food.x == snake.x && food.y == snake.y) {
+          snake.countTails++;
           food.x = getRndInteger(0, canvas.width / grid) * grid;
           food.y = getRndInteger(0, canvas.height / grid) * grid;
         }
@@ -74,13 +75,13 @@
         snake.x += snake.dx;
         snake.y += snake.dy;
         if (snake.x < 0) {
-          snake.x = canvas.width - glid;
-        } else if (snake.x > canvas.width) {
+          snake.x = canvas.width - grid;
+        } else if (snake.x >= canvas.width) {
           snake.x = 0;
         }
         if (snake.y < 0) {
-          snake.y = canvas.height - glid;
-        } else if (snake.y > canvas.height) {
+          snake.y = canvas.height - grid;
+        } else if (snake.y >= canvas.height) {
           snake.y = 0;
         }
         snake.tails.unshift({ x: snake.x, y: snake.y });
@@ -90,6 +91,42 @@
         context.fillStyle = "Lime";
         for (const i of snake.tails) {
           context.fillRect(i.x, i.y, grid - 1, grid - 1);
+        }
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.code === "ArrowUp" && snake.dy === 0) {
+          snake.dx = 0;
+          snake.dy = -grid;
+        } else if (e.code === "ArrowDown" && snake.dy === 0) {
+          snake.dx = 0;
+          snake.dy = grid;
+        } else if (e.code === "ArrowLeft" && snake.dx === 0) {
+          snake.dx = -grid;
+          snake.dy = 0;
+        } else if (e.code === "ArrowRight" && snake.dx === 0) {
+          snake.dx = grid;
+          snake.dy = 0;
+        }
+        console.log(e.code);
+      });
+      function finish() {
+        for (let i = 0; i < snake.tails.length; i++) {
+          for (let k = 0; k < snake.tails.length; k++) {
+            let w = snake.tails[i];
+            let s = snake.tails[k];
+            if (w.x == s.x && w.y == s.y && i != k) {
+              snake = {
+                x: 0,
+                y: 0,
+                speed: 7,
+                dx: grid,
+                dy: 0,
+                tails: [],
+                countTails: 5,
+              };
+            }
+          }
         }
       }
 
